@@ -52,3 +52,39 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'))
 }
+
+const serviceCards = [...document.querySelectorAll<HTMLElement>('.service-card')]
+const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+if (!reduceMotion && hasFinePointer) {
+  serviceCards.forEach((card) => {
+    card.addEventListener('pointerenter', () => {
+      card.classList.add('is-active')
+      serviceCards.forEach((other) => {
+        if (other !== card) other.classList.add('is-neighbor')
+      })
+    })
+
+    card.addEventListener('pointermove', (event) => {
+      const bounds = card.getBoundingClientRect()
+      const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width))
+      const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height))
+      const tiltX = ((x - 0.5) * 3).toFixed(2)
+      const tiltY = ((0.5 - y) * 2.4).toFixed(2)
+
+      card.style.setProperty('--spot-x', `${(x * 100).toFixed(1)}%`)
+      card.style.setProperty('--spot-y', `${(y * 100).toFixed(1)}%`)
+      card.style.setProperty('--tilt-x', `${tiltX}deg`)
+      card.style.setProperty('--tilt-y', `${tiltY}deg`)
+    })
+
+    card.addEventListener('pointerleave', () => {
+      card.classList.remove('is-active')
+      card.style.setProperty('--tilt-x', '0deg')
+      card.style.setProperty('--tilt-y', '0deg')
+      card.style.setProperty('--spot-x', '50%')
+      card.style.setProperty('--spot-y', '50%')
+      serviceCards.forEach((other) => other.classList.remove('is-neighbor'))
+    })
+  })
+}
