@@ -9,10 +9,10 @@ Build a source-faithful public-facing homepage for Vertigo AI, based on Sharif M
 - **Design movement:** Quiet-future editorial; a human, considered digital-studio identity rather than a generic AI/SaaS dashboard.
 - **Core principles:** Lead with one clear idea; communicate practical usefulness; keep visual effects restrained; make every action and section easy to scan.
 - **Color philosophy:** Deep ocean blue carries focus and continuity with the portfolio; warm off-white keeps the reading experience approachable; pale lime is a small, ownable signal for links and emphasis; cool glass-blue adds depth without making technology feel cold.
-- **Layout paradigm:** Asymmetric split hero with text and a custom visual anchored to opposite sides; follow it with broad editorial bands and varied left/right alignments rather than a centered card grid.
+- **Layout paradigm:** Asymmetric split hero with text on the left and a custom visual focal point to the right; follow it with broad editorial bands and varied left/right alignments rather than a centered card grid.
 - **Signature elements:** A translucent orbit/sphere motif; a custom V mark with a subtle orbital accent; thin monospaced section labels and hairline separators.
 - **Interaction philosophy:** The page is calm and direct. Navigation uses clear anchors, the primary contact path opens a pre-addressed email, and social links go only to confirmed accounts.
-- **Animation:** Gentle reveal on scroll and a slow orbit/glint on the hero art, with restrained hover transitions. Honor `prefers-reduced-motion` and avoid motion that delays reading or contact.
+- **Animation:** Gentle reveal on scroll and a restrained scroll cue, with quiet hover transitions. Honor `prefers-reduced-motion` and avoid motion that delays reading or contact.
 - **Typography system:** DM Serif Display for expressive headlines; Manrope for readable body copy; Space Mono for compact navigation, labels, and metadata. Use fluid sizes and preserve line length on small screens.
 - **Brand essence:** Vertigo AI makes ideas useful through websites and practical AI agents, for people looking to turn an idea into a digital tool. This audience phrasing is positioning copy, not a verified niche or customer segment.
 - **Brand personality:** Thoughtful, practical, clear.
@@ -31,4 +31,4 @@ Build a source-faithful public-facing homepage for Vertigo AI, based on Sharif M
 
 ## Implementation and structure
 
-A small static Vite site using semantic HTML, CSS, and TypeScript/JavaScript; no server, database, login, or contact-form backend. Keep the layout in `index.html`, behavior in `src/main.ts`, visual tokens and responsive design in `src/style.css`, generated artwork in `public/assets/`, and the route declaration at `public/manus-routes.json`. Build output is `dist/`; serve Preview on the configured port 3000. The first delivery is a Preview, not a public launch.
+A small static Vite site using semantic HTML, CSS, and TypeScript/JavaScript; no server, database, login, or contact-form backend. Keep the layout in `index.html`, behavior in `src/main.ts`, visual tokens and responsive design in `src/style.css`, custom hero artwork referenced through managed storage, the local standalone brand icon in `public/assets/`, and the route declaration at `public/manus-routes.json`. Build output is `dist/`; serve Preview on the configured port 3000. The first delivery is a Preview, not a public launch.
