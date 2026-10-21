@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  // Relative asset paths work on both GitHub Pages project URLs and local preview.
+  base: './',
   server: {
     host: '0.0.0.0',
     port: 3000,
