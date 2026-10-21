@@ -113,7 +113,7 @@ document.head.appendChild(projectStyles)
 let demoRoot: Root | null = null
 let demoMount: HTMLDivElement | null = null
 const syncPortfolioDemo = () => {
-  const match = window.location.hash.match(/^#demo\\/(hearth-form|sunday-bakehouse|findwell|orderwise)$/)
+  const match = window.location.hash.match(/^#demo\/(hearth-form|sunday-bakehouse|findwell|orderwise)$/)
   if (match) {
     if (!demoMount) { demoMount=document.createElement('div'); demoMount.id='vertigo-demo-root'; document.body.appendChild(demoMount); demoRoot=createRoot(demoMount) }
     demoRoot?.render(createElement(ProjectDemo,{slug:match[1]}))
