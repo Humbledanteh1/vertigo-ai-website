@@ -2,6 +2,7 @@ import './style.css'
 import './portfolio/ProjectDemos.css'
 import { createRoot, type Root } from 'react-dom/client'
 import { createElement } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { ProjectDemo } from './portfolio/ProjectDemos'
 
 const header = document.querySelector<HTMLElement>('.site-header')
@@ -11,6 +12,12 @@ const navItems = navigation?.querySelectorAll<HTMLAnchorElement>('a')
 const year = document.querySelector<HTMLElement>('#year')
 
 if (year) year.textContent = String(new Date().getFullYear())
+
+// Mount Vercel Analytics without changing the site's existing HTML structure.
+const analyticsMount = document.createElement('div')
+analyticsMount.setAttribute('aria-hidden', 'true')
+document.body.appendChild(analyticsMount)
+createRoot(analyticsMount).render(createElement(Analytics))
 
 const updateHeader = () => {
   header?.classList.toggle('is-scrolled', window.scrollY > 28)
