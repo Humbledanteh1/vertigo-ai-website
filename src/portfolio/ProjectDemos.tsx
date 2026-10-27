@@ -47,7 +47,16 @@ function StoreDemo() {
   const [cart, setCart] = useState<Record<string, number>>({})
   const [cartOpen, setCartOpen] = useState(false)
   const [notice, setNotice] = useState('')
-  const visibleProducts = products.filter((product) => activeCategory === 'All' || product.category === activeCategory)
+  const [query, setQuery] = useState('')
+  const [sort, setSort] = useState<'featured' | 'price-low' | 'price-high'>('featured')
+  const [saved, setSaved] = useState<string[]>([])
+  const [quickView, setQuickView] = useState<Product | null>(null)
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = activeCategory === 'All' || product.category === activeCategory
+    const matchesQuery = `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(query.trim().toLowerCase())
+    return matchesCategory && matchesQuery
+  })
+  const visibleProducts = [...filteredProducts].sort((a, b) => sort === 'price-low' ? a.price - b.price : sort === 'price-high' ? b.price - a.price : products.indexOf(a) - products.indexOf(b))
   const cartItems = Object.entries(cart).flatMap(([id, quantity]) => {
     const product = products.find((item) => item.id === id)
     return product && quantity > 0 ? [{ product, quantity }] : []
@@ -64,10 +73,14 @@ function StoreDemo() {
       return next
     })
   }
-
+  const addToBag = (product: Product) => {
+    changeQuantity(product.id, 1)
+    setNotice(`${product.name} added to your demo bag.`)
+  }
   const scrollToProducts = () => document.getElementById('store-products')?.scrollIntoView({ behavior: 'smooth' })
 
   return <div className="store-demo">
+    <div className="store-announcement"><span>MADE IN SMALL BATCHES</span><span>Considered objects for everyday rituals</span><span>Complimentary delivery over £75 <i>↗</i></span></div>
     <header className="store-nav">
       <a href="#demo-top" className="store-wordmark">HEARTH <i>&amp;</i> FORM</a>
       <span className="store-nav-note">Objects for a slower home</span>
@@ -81,36 +94,46 @@ function StoreDemo() {
         <h3>Everyday objects,<br /><em>made a little slower.</em></h3>
         <p>Useful forms, honest materials, and small details that make a daily ritual feel like your own.</p>
         <button type="button" className="store-primary" onClick={scrollToProducts}>Shop the collection <span aria-hidden="true">↓</span></button>
+        <div className="store-trust-row"><span><i>✳</i> Thoughtfully made</span><span><i>↗</i> Timeless by design</span></div>
       </div>
-      <div className="store-hero-art"><img src={asset('hearth-vase.webp')} alt="A sculptural handmade ceramic vase in soft morning light" /></div>
+      <div className="store-hero-art"><img src={asset('hearth-vase.webp')} alt="A sculptural handmade ceramic vase in soft morning light" /><span className="store-art-caption">THE QUIET OBJECTS COLLECTION · 01</span></div>
       <span className="store-hero-index">FORM 01 — HOME</span>
     </section>
     <section className="store-products-section" id="store-products">
       <div className="store-section-head"><div><span className="store-eyebrow">A SMALL, USEFUL COLLECTION</span><h4>Objects to live with.</h4></div><p>Thoughtful shapes. No rush.</p></div>
-      <div className="store-filters" aria-label="Filter products">
-        {categories.map((category) => <button key={category} type="button" aria-pressed={activeCategory === category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)}>{category}</button>)}
+      <div className="store-catalog-tools">
+        <div className="store-filters" aria-label="Filter products">
+          {categories.map((category) => <button key={category} type="button" aria-pressed={activeCategory === category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)}>{category}</button>)}
+        </div>
+        <div className="store-catalog-actions">
+          <label className="store-search"><span aria-hidden="true">⌕</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find an object…" aria-label="Search the collection" /></label>
+          <label className="store-sort-label"><span>Sort</span><select value={sort} onChange={(event) => setSort(event.target.value as typeof sort)} aria-label="Sort products"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
+        </div>
       </div>
-      <div className="store-product-grid">
-        {visibleProducts.map((product, index) => <article className="store-product" key={product.id}>
-          <div className={`store-product-image store-product-image-${index}`}><img src={asset(product.image)} alt={product.imageAlt} loading="lazy" /><span>0{products.indexOf(product) + 1}</span></div>
-          <div className="store-product-meta"><div><h5>{product.name}</h5><p>{product.description}</p></div><strong>{money(product.price)}</strong></div>
-          <button type="button" className="store-add-button" onClick={() => { changeQuantity(product.id, 1); setNotice(`${product.name} added to your demo bag.`) }}>Add to bag <span aria-hidden="true">+</span></button>
+      <div className="store-results-count">{visibleProducts.length} {visibleProducts.length === 1 ? 'object' : 'objects'} to explore <span>HANDMADE FEEL · EVERYDAY FUNCTION</span></div>
+      {visibleProducts.length > 0 ? <div className="store-product-grid">
+        {visibleProducts.map((product) => <article className="store-product" key={product.id}>
+          <div className={`store-product-image store-product-image-${products.indexOf(product)}`}><img src={asset(product.image)} alt={product.imageAlt} loading="lazy" /><span className="store-product-number">0{products.indexOf(product) + 1}</span><button type="button" className={`store-save-button ${saved.includes(product.id) ? 'is-saved' : ''}`} onClick={() => setSaved((current) => current.includes(product.id) ? current.filter((id) => id !== product.id) : [...current, product.id])} aria-label={saved.includes(product.id) ? `Remove ${product.name} from saved items` : `Save ${product.name}`} aria-pressed={saved.includes(product.id)}>{saved.includes(product.id) ? '♥' : '♡'}</button><button type="button" className="store-quick-view" onClick={() => setQuickView(product)}>Quick view <span>↗</span></button></div>
+          <div className="store-product-meta"><div><span className="store-product-category">{product.category}</span><h5>{product.name}</h5><p>{product.description}</p></div><strong>{money(product.price)}</strong></div>
+          <button type="button" className="store-add-button" onClick={() => addToBag(product)}>Add to bag <span aria-hidden="true">+</span></button>
         </article>)}
-      </div>
+      </div> : <div className="store-empty-results"><span>⌕</span><h5>No objects found just yet.</h5><p>Try another search or explore the full collection.</p><button type="button" onClick={() => { setQuery(''); setActiveCategory('All') }}>Clear filters</button></div>}
       <p className="store-live-note" role="status" aria-live="polite">{notice}</p>
+      <div className="store-story-strip"><span className="store-story-mark">H/F</span><div><span className="store-eyebrow">A NOTE ON MAKING</span><h5>Less, but more meaningful.</h5><p>We believe the things we reach for every day deserve a little thought: natural textures, useful forms, and pieces made to stay in your home.</p></div><span className="store-story-side">KEEP WHAT<br />MATTERS.</span></div>
     </section>
     <footer className="store-footer"><span>HEARTH &amp; FORM</span><span>A fictional storefront concept by Vertigo AI.</span><span>Small things, kept close.</span></footer>
     {cartOpen && <div className="store-cart-layer">
       <button type="button" className="store-cart-backdrop" aria-label="Close shopping bag" onClick={() => setCartOpen(false)} />
       <aside className="store-cart-panel" role="dialog" aria-modal="true" aria-labelledby="store-cart-title">
         <div className="store-cart-head"><div><span className="store-eyebrow">YOUR SELECTION</span><h4 id="store-cart-title">Shopping bag <small>({itemCount})</small></h4></div><button type="button" className="store-close-button" onClick={() => setCartOpen(false)} aria-label="Close shopping bag">×</button></div>
-        {cartItems.length === 0 ? <p className="store-empty-cart">Your bag is empty for now. Find a piece to bring home.</p> : <div className="store-cart-items">{cartItems.map(({ product, quantity }) => <article className="store-cart-item" key={product.id}>
+        {cartItems.length === 0 ? <div className="store-empty-cart"><span>H/F</span><p>Your bag is empty for now. Find a piece to bring home.</p><button type="button" onClick={() => { setCartOpen(false); scrollToProducts() }}>Explore the collection</button></div> : <div className="store-cart-items">{cartItems.map(({ product, quantity }) => <article className="store-cart-item" key={product.id}>
           <img src={asset(product.image)} alt="" />
           <div><h5>{product.name}</h5><span>{money(product.price)}</span><div className="store-quantity"><button type="button" onClick={() => changeQuantity(product.id, -1)} aria-label={`Remove one ${product.name}`}>−</button><span>{quantity}</span><button type="button" onClick={() => changeQuantity(product.id, 1)} aria-label={`Add one ${product.name}`}>+</button></div></div>
         </article>)}</div>}
-        <div className="store-cart-bottom"><div><span>Subtotal</span><strong>{money(total)}</strong></div><button type="button" onClick={() => setNotice('This concept stops before checkout. No payment or order is submitted.')}>Continue to checkout <span aria-hidden="true">→</span></button><p>This is a concept demo. Checkout is not connected.</p></div>
+        <div className="store-cart-bottom"><div><span>Subtotal</span><strong>{money(total)}</strong></div><p className="store-shipping-note">{total >= 75 ? 'Your demo basket qualifies for complimentary delivery.' : `Add ${money(75 - total)} more for complimentary delivery.`}</p><button type="button" onClick={() => setNotice('This concept stops before checkout. No payment or order is submitted.')}>Continue to checkout <span aria-hidden="true">→</span></button><p>This is a concept demo. Checkout is not connected.</p></div>
       </aside>
     </div>}
+    {quickView && <div className="store-quick-layer"><button type="button" className="store-cart-backdrop" aria-label="Close quick view" onClick={() => setQuickView(null)} /><section className="store-quick-panel" role="dialog" aria-modal="true" aria-labelledby="store-quick-title"><button type="button" className="store-close-button store-quick-close" onClick={() => setQuickView(null)} aria-label="Close quick view">×</button><img src={asset(quickView.image)} alt={quickView.imageAlt} /><div className="store-quick-copy"><span className="store-eyebrow">{quickView.category} · FORM 0{products.indexOf(quickView) + 1}</span><h4 id="store-quick-title">{quickView.name}</h4><strong>{money(quickView.price)}</strong><p>{quickView.description} Designed for everyday use, with an understated finish that sits naturally alongside the pieces you already own.</p><button type="button" className="store-add-button" onClick={() => { addToBag(quickView); setQuickView(null) }}>Add to bag <span>+</span></button></div></section></div>}
   </div>
 }
 
