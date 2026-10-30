@@ -3,185 +3,146 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#123d55" />
+    <meta name="theme-color" content="#f1eee7" />
     <meta name="color-scheme" content="light" />
     <meta name="author" content="Sharif Mahmood, Vertigo AI" />
-    <meta name="description" content="Vertigo AI, led by Sharif Mahmood, builds thoughtful websites and practical AI agents that turn ideas into useful digital tools." />
+    <meta name="description" content="Vertigo AI is an independent digital studio building considered websites, online stores and practical AI tools for growing businesses." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Vertigo AI" />
-    <meta property="og:title" content="Vertigo AI — Make the next idea useful" />
-    <meta property="og:description" content="Thoughtful websites and practical AI agents by Sharif Mahmood, owner of Vertigo AI." />
+    <meta property="og:title" content="Vertigo AI — Digital work, done with intent." />
+    <meta property="og:description" content="Websites, online stores and useful AI workflows for businesses that want to move forward." />
+    <meta property="og:url" content="https://vertigo-ai-website.vercel.app/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-    <style>
-      /* Critical presentation fallback: keeps the site designed even if a host serves source HTML. */
-      :root{font-family:Arial,Helvetica,sans-serif;color:#14232b;background:#f3f2ed;font-synthesis:none;text-rendering:optimizeLegibility}
-      *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;min-width:320px;font-family:Arial,Helvetica,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button{font:inherit}
-      .skip-link{position:absolute;left:-9999px}.skip-link:focus{left:12px;top:12px;z-index:100;background:#daf27a;padding:10px}
-      .page-shell{width:min(1180px,calc(100% - 48px));margin-inline:auto}
-      .site-header{position:absolute;z-index:30;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;min-height:82px;padding:12px clamp(24px,6vw,80px);color:#fafaf6}
-      .brand{display:flex;align-items:center;gap:12px}.brand-mark{width:42px;height:42px;fill:none;stroke:currentColor;stroke-width:1.7}.brand-mark circle{fill:#daf27a;stroke:none}.brand-type{display:grid;gap:3px}.brand-type strong{font-size:14px;letter-spacing:2px}.brand-type small{font-size:9px;letter-spacing:1.5px;opacity:.75}
-      .nav-links{display:flex;align-items:center;gap:28px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.nav-links a{padding:8px 0}.nav-links .nav-cta{border:1px solid #8aa0a3;border-radius:30px;padding:10px 16px}.nav-cta span{color:#daf27a}
-      .hero{position:relative;display:flex;align-items:center;min-height:760px;min-height:100svh;overflow:hidden;padding:140px 0 100px;background:linear-gradient(125deg,#153f56,#0c2d3d 78%);color:#fafaf6}
-      .hero-art,.hero-art:after,.hero-grain{position:absolute;inset:0;pointer-events:none}.hero-art{background:radial-gradient(ellipse at 80% 40%,rgba(92,159,177,.55),transparent 28%),radial-gradient(ellipse at 78% 45%,transparent 0 18%,rgba(218,242,122,.22) 18.2% 18.5%,transparent 18.7% 28%,rgba(157,213,217,.2) 28.2% 28.5%,transparent 28.7% 39%)}.hero-art:after{content:"";background:linear-gradient(90deg,rgba(12,42,57,.92),transparent 100%)}.hero-content{position:relative;z-index:1;display:flex;align-items:center;min-height:480px}.hero-copy{width:min(740px,80%)}.eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#58727b}.eyebrow-light{color:#d5e1de}.eyebrow-dot{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#daf27a}.hero h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:500;letter-spacing:-2px}.hero h1{font-size:clamp(58px,8vw,112px);line-height:.96;margin:28px 0}.hero h1 em,h2 em{color:#daf27a}.hero-lede{max-width:500px;color:#dce7e5;font-size:18px;line-height:1.8}.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:24px;margin-top:34px}.hero-primary-action{display:flex;flex-direction:column;gap:8px}.button{display:inline-flex;align-items:center;gap:18px;padding:14px 22px;border-radius:30px;font-weight:700}.button-lime{background:#daf27a;color:#14232b}.hero-cta-note{margin:0;color:#c4d3d3;font-size:12px}.text-link{border-bottom:1px solid #8aa0a3;padding-bottom:5px}.hero-caption{position:absolute;right:0;bottom:0;display:flex;gap:12px;align-items:center;font-size:10px;letter-spacing:1px;text-transform:uppercase}.hero-caption i{width:30px;height:1px;background:#daf27a}.hero-caption b{margin-left:18px}
-      .intro-section{display:grid;grid-template-columns:1fr 2fr 1fr;gap:36px;padding-block:110px}.intro-index{padding-top:12px}.intro-copy h2,.section-heading h2,.about-copy h2,.contact-intro h2{font-size:clamp(38px,5vw,66px);line-height:1.05;margin:0 0 24px}.intro-copy p,.service-card p,.about-copy p{font-size:17px;color:#52656b;line-height:1.85}.intro-copy h2 em,.section-heading h2 em,.about-copy h2 em{color:#1d5d7c}.intro-aside{align-self:end;border-top:2px solid #1d5d7c;padding-top:15px}.intro-aside p{font-size:16px}
-      .services-section,.about-section{padding:100px 0;background:#e8ebe5}.section-heading{max-width:720px;margin-bottom:44px}.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.service-card{position:relative;min-height:280px;padding:34px;background:#fafaf6;border:1px solid #d7dedc;border-radius:5px}.service-card h3{font-size:32px;line-height:1.1;margin:22px 0 14px}.service-card .card-index{font-size:11px;letter-spacing:2px;color:#1d5d7c}.service-card a{display:inline-block;margin-top:14px;color:#1d5d7c;font-weight:700}
-      .approach-section{padding:100px 0;background:#153f56;color:#fafaf6}.approach-section h2{font-size:clamp(40px,6vw,72px);line-height:1.05;max-width:780px}.approach-section h2 em{color:#daf27a}.approach-section p{max-width:680px;color:#d5e1de;font-size:18px;line-height:1.8}
-      .about-section{background:#f3f2ed}.about-copy{max-width:760px}.contact-section{padding:100px 0;background:#0c2d3d;color:#fafaf6}.contact-section h2{font-size:clamp(42px,6vw,76px);line-height:1.05}.contact-action p{color:#d5e1de}.email-link{display:inline-block;margin-top:20px;padding-bottom:7px;border-bottom:1px solid #daf27a;color:#daf27a;font-size:clamp(16px,2vw,24px)}.contact-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:70px;color:#d5e1de}
-      .site-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px clamp(24px,6vw,80px);background:#081f2b;color:#d5e1de;font-size:12px}.footer-brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:1px}.footer-mark{color:#daf27a;font-size:24px}.footer-socials{display:flex;gap:20px}
-      [data-reveal]{opacity:1;transform:none}.menu-toggle{display:none}
-      @media(max-width:700px){.page-shell{width:calc(100% - 36px)}.site-header{min-height:70px;padding:10px 18px}.brand-mark{width:34px;height:34px}.brand-type strong{font-size:12px}.brand-type small{font-size:8px}.menu-toggle{display:flex;flex-direction:column;gap:5px;justify-content:center;width:42px;height:42px;border:1px solid #78909a;border-radius:50%;background:transparent}.menu-toggle span{width:16px;height:1px;background:currentColor;margin-inline:auto}.nav-links{display:none;position:absolute;top:68px;left:14px;right:14px;padding:20px;background:#fafaf6;color:#14232b;border-radius:6px;box-shadow:0 12px 30px #071e2a33;flex-direction:column;align-items:stretch;gap:8px}.nav-links.is-open{display:flex}.nav-links .nav-cta{border-color:#d7dedc}.hero{min-height:740px;min-height:92svh;padding:120px 0 70px}.hero-content{min-height:480px}.hero-copy{width:100%}.hero h1{font-size:clamp(54px,14vw,82px);letter-spacing:-2px}.hero-lede{font-size:16px}.hero-actions{align-items:flex-start;flex-direction:column;gap:20px}.hero-caption{left:0;right:auto;bottom:-35px;flex-wrap:wrap}.intro-section{grid-template-columns:1fr;gap:22px;padding-block:70px}.intro-copy h2,.section-heading h2,.about-copy h2,.contact-intro h2{font-size:clamp(38px,10vw,54px)}.intro-aside{max-width:360px}.services-section,.about-section,.approach-section,.contact-section{padding:72px 0}.service-grid{grid-template-columns:1fr}.service-card{min-height:0;padding:26px}.approach-section h2,.contact-section h2{font-size:clamp(40px,11vw,58px)}.contact-bottom{flex-direction:column;margin-top:42px}.site-footer{align-items:flex-start;flex-direction:column;padding:24px 18px}.footer-socials{gap:16px}}
-      @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-    </style>
-    <title>Vertigo AI — Websites &amp; Practical AI Agents</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <title>Vertigo AI — Digital work, done with intent.</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header" id="top">
       <a class="brand" href="#top" aria-label="Vertigo AI home">
-        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M8 9.5 22.1 37 38.8 8.5" />
-          <path class="mark-orbit" d="M5.5 25.5c4.4-7.2 11.2-10.8 19.1-10.8 7.7 0 14.3 3.4 18 9.3" />
-          <circle cx="39.1" cy="9" r="2.4" />
-        </svg>
-        <span class="brand-type"><strong>VERTIGO</strong><small>AI / DIGITAL WORK</small></span>
+        <span class="brand-symbol" aria-hidden="true">v<span>.</span></span>
+        <span class="brand-type"><strong>VERTIGO AI</strong><small>INDEPENDENT DIGITAL STUDIO</small></span>
       </a>
       <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
         <span></span><span></span>
       </button>
       <nav class="nav-links" id="primary-navigation" aria-label="Main navigation">
+        <a href="#work">Selected work</a>
         <a href="#services">What we do</a>
-        <a href="#approach">Our perspective</a>
-        <a href="#about">About</a>
-        <a class="nav-cta" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+        <a href="#about">Studio</a>
+        <a class="nav-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-heading">
-        <div class="hero-art" aria-hidden="true">
-        </div>
-        <div class="hero-grain" aria-hidden="true"></div>
-        <div class="hero-content page-shell">
+        <div class="hero-topline page-shell"><span>PORT HARCOURT · WORKING EVERYWHERE</span><span>WEB / COMMERCE / AUTOMATION</span></div>
+        <div class="hero-layout page-shell">
           <div class="hero-copy" data-reveal>
-            <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> Vertigo AI <span class="eyebrow-slash">/</span> Sharif Mahmood</p>
-            <h1 id="hero-heading">Make the next idea <em>useful.</em></h1>
-            <p class="hero-lede">Websites and practical AI agents for turning an idea into a clear, useful digital tool.</p>
+            <p class="eyebrow"><span class="status-dot"></span> SMALL STUDIO. HANDS-ON WORK.</p>
+            <h1 id="hero-heading">Make it clear.<br /><em>Make it work.</em></h1>
+            <p class="hero-lede">We build websites, online stores and practical AI tools that help good businesses do their work better.</p>
             <div class="hero-actions">
-              <div class="hero-primary-action">
-                <a class="button button-lime" href="mailto:Vertigogrowth1@gmail.com?subject=Let%E2%80%99s%20talk%20about%20an%20idea">Talk about an idea <span aria-hidden="true">↗</span></a>
-                <p class="hero-cta-note">A short note about the idea is enough to start.</p>
-              </div>
-              <a class="text-link text-link-light" href="#services">Explore what Vertigo does <span aria-hidden="true">↓</span></a>
+              <a class="button button-dark" href="mailto:Vertigogrowth1@gmail.com?subject=Project%20enquiry">Tell us what you're building <span aria-hidden="true">↗</span></a>
+              <a class="quiet-link" href="#work">See the work <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <div class="hero-caption" aria-hidden="true"><span>Websites</span><i></i><span>Practical AI agents</span><b>01 / 04</b></div>
+          <div class="hero-aside" data-reveal>
+            <div class="hero-index">01 <span>—</span> 03</div>
+            <div class="hero-aside-rule"></div>
+            <p>Good digital work isn't about adding more technology. It's about making the next step easier.</p>
+            <span class="hero-aside-note">A PRACTICAL APPROACH TO DIGITAL</span>
+          </div>
         </div>
-        <a class="scroll-cue" href="#services" aria-label="Scroll to what Vertigo AI does"><span></span></a>
+        <div class="hero-bottomline page-shell"><span>INDEPENDENT BY DESIGN</span><span>SCROLL TO EXPLORE <b>↓</b></span></div>
       </section>
 
       <section class="intro-section page-shell" aria-labelledby="intro-heading">
-        <div class="intro-index eyebrow" data-reveal>01 <span>/</span> A useful starting point</div>
+        <p class="section-kicker" data-reveal><span>01</span> / THE STUDIO</p>
         <div class="intro-copy" data-reveal>
-          <h2 id="intro-heading">Good digital work begins with <em>a clear idea.</em></h2>
-          <p>Vertigo AI is the work of Sharif Mahmood: bridging the space between an idea and a useful digital tool, with care for how it looks, works, and fits into real life.</p>
+          <h2 id="intro-heading">Digital should feel like a <em>natural extension</em> of your business.</h2>
+          <p>Vertigo AI is an independent studio led by Sharif Mahmood. We bring design and technology together to make useful things: a better first impression, a smoother way to sell, or a task that no longer needs doing by hand.</p>
         </div>
-        <div class="intro-aside" data-reveal>
-          <span class="aside-rule"></span>
-          <p>Less noise around the technology.<br /><strong>More purpose in the thing you build.</strong></p>
+        <p class="intro-note" data-reveal>Thoughtful in the details.<br /><strong>Practical in the outcome.</strong></p>
+      </section>
+
+      <section class="work-section" id="work" aria-labelledby="work-heading">
+        <div class="page-shell">
+          <div class="section-heading" data-reveal>
+            <p class="section-kicker"><span>02</span> / SELECTED WORK</p>
+            <div><h2 id="work-heading">Built to be <em>used.</em></h2><p>Explore a few things we've been making. Some are live storefronts; others are interactive concepts that show how an idea could work.</p></div>
+          </div>
+          <div class="work-note" data-reveal>
+            <div class="work-note-copy"><p class="eyebrow">The portfolio</p><h2>Work in<br /><em>good company.</em></h2></div>
+            <div class="work-note-detail"><p>Browse the projects, open the demos and try the interactions. We label concept work honestly, so you can see what is live and what is a demonstration.</p><a class="text-link" href="#contact">Have a project in mind? <span aria-hidden="true">↗</span></a></div>
+          </div>
         </div>
       </section>
 
       <section class="services-section" id="services" aria-labelledby="services-heading">
         <div class="page-shell">
           <div class="section-heading" data-reveal>
-            <p class="eyebrow">02 <span>/</span> What Vertigo builds</p>
-            <h2 id="services-heading">Two ways to make<br /><em>an idea tangible.</em></h2>
-            <p class="section-lede">The right tool depends on what needs to become clearer, easier, or more useful.</p>
+            <p class="section-kicker"><span>03</span> / WHAT WE DO</p>
+            <div><h2 id="services-heading">The right tool for<br /><em>the real problem.</em></h2><p>Start with what your business needs. We'll work out the simplest useful way to get there.</p></div>
           </div>
           <div class="service-list">
             <article class="service-card service-web" data-reveal>
-              <div class="service-topline"><span>01 / Websites</span><span class="service-arrow" aria-hidden="true">↗</span></div>
-              <div class="service-bottomline">
-                <div class="service-copy"><h3>A clear place<br />for your idea.</h3><p>Thoughtful websites that make what you do easier to see, visit, and understand.</p></div>
-                <div class="service-orbit orbit-web" aria-hidden="true"><i></i><b></b><span></span></div>
-              </div>
+              <div class="service-topline"><span>01 / DIGITAL PRESENCE</span><span>01</span></div>
+              <div class="service-body"><h3>Websites &<br />online stores.</h3><p>Clear, well-made websites that explain what you do and make it easier for people to take the next step.</p></div>
+              <ul><li>Business websites</li><li>E-commerce</li><li>Landing pages</li></ul>
+              <a href="#contact" class="service-link">Discuss a website <span>↗</span></a>
             </article>
             <article class="service-card service-ai" data-reveal>
-              <div class="service-topline"><span>02 / Practical AI agents</span><span class="service-arrow" aria-hidden="true">↗</span></div>
-              <div class="service-bottomline">
-                <div class="service-copy"><h3>A more helpful<br />way through work.</h3><p>AI agents shaped around useful workflows—and technology that earns its place.</p></div>
-                <div class="service-orbit orbit-ai" aria-hidden="true"><i></i><b></b><span></span></div>
-              </div>
+              <div class="service-topline"><span>02 / USEFUL AUTOMATION</span><span>02</span></div>
+              <div class="service-body"><h3>AI tools &<br />workflows.</h3><p>Purpose-built assistants and automations for repetitive questions, enquiries and everyday operations.</p></div>
+              <ul><li>Customer support assistants</li><li>Lead and booking flows</li><li>Internal automations</li></ul>
+              <a href="#contact" class="service-link">Discuss an AI workflow <span>↗</span></a>
             </article>
           </div>
-          <p class="service-footnote">Clear interfaces. Helpful workflows. Thoughtful use of technology.</p>
+          <p class="service-footnote">No technology for its own sake. No unnecessary complexity.</p>
         </div>
       </section>
 
-      <section class="approach-section" id="approach" aria-labelledby="approach-heading">
+      <section class="approach-section" aria-labelledby="approach-heading">
         <div class="page-shell approach-layout">
-          <div class="approach-title" data-reveal>
-            <p class="eyebrow eyebrow-light">03 <span>/</span> Our perspective</p>
-            <h2 id="approach-heading">Useful is a<br /><em>design decision.</em></h2>
-          </div>
+          <div class="approach-title" data-reveal><p class="section-kicker"><span>04</span> / HOW WE WORK</p><h2 id="approach-heading">A good process<br />makes room for<br /><em>good work.</em></h2></div>
           <div class="approach-content" data-reveal>
-            <p class="approach-lede">The best technology doesn’t ask for attention. It helps the idea come through.</p>
-            <div class="principle-list">
-              <div><span>01</span><p><strong>Clear interface</strong><small>Make the next step easy to see.</small></p></div>
-              <div><span>02</span><p><strong>Helpful workflow</strong><small>Let the tool do something that matters.</small></p></div>
-              <div><span>03</span><p><strong>Technology with a purpose</strong><small>Use what serves the idea—and leave the rest.</small></p></div>
+            <p class="approach-lede">Small enough to stay close to the details. Structured enough to keep the work moving.</p>
+            <div class="process-list">
+              <div><span>01</span><p><strong>Start with the problem</strong><small>We learn what you do, who it's for and what needs to improve.</small></p></div>
+              <div><span>02</span><p><strong>Shape the right solution</strong><small>We agree on the scope before adding features or complexity.</small></p></div>
+              <div><span>03</span><p><strong>Build, test, refine</strong><small>We make the thing, check the details and prepare it for real use.</small></p></div>
             </div>
           </div>
-          <div class="approach-orbit" aria-hidden="true"><span></span><i></i></div>
         </div>
       </section>
 
-      <section class="work-section page-shell" aria-labelledby="work-heading">
-        <div class="work-label eyebrow" data-reveal>04 <span>/</span> Project stories</div>
-        <div class="work-note" data-reveal>
-          <div class="work-note-copy"><p class="eyebrow">Work, with the why intact</p><h2 id="work-heading">A place for<br /><em>what’s next.</em></h2></div>
-          <div class="work-note-detail"><p>The public portfolio doesn’t yet list named case studies. Rather than fill this space with invented projects or outcomes, we’re leaving room for the work to speak when its story is ready.</p><a class="text-link" href="mailto:Vertigogrowth1@gmail.com?subject=Let%E2%80%99s%20talk%20about%20an%20idea">Start with your idea <span aria-hidden="true">↗</span></a></div>
-          <div class="work-note-number" aria-hidden="true">V<span>·</span>AI</div>
-        </div>
-      </section>
-
-      <section class="about-section" id="about" aria-labelledby="about-heading">
-        <div class="about-visual" data-reveal>
-          <div class="about-monogram" aria-hidden="true">
-            <svg viewBox="0 0 180 180"><circle class="monogram-ring" cx="90" cy="90" r="76"/><circle class="monogram-ring ring-inner" cx="90" cy="90" r="63"/><path d="M54 52 86 126 126 49"/><path class="monogram-orbit" d="M42 94c13-22 31-33 53-33 22 0 39 10 48 27"/><circle class="monogram-dot" cx="143" cy="53" r="5"/></svg>
-            <span>Vertigo AI</span>
-            <small>Sharif Mahmood · Owner</small>
-          </div>
-          <span class="visual-caption eyebrow">A considered bridge from thought to tool</span>
-        </div>
+      <section class="about-section page-shell" id="about" aria-labelledby="about-heading">
+        <div class="about-stamp" data-reveal><span>V.</span><small>INDEPENDENT<br />DIGITAL STUDIO</small><i>EST. 2026</i></div>
         <div class="about-copy" data-reveal>
-          <p class="eyebrow">05 <span>/</span> About</p>
-          <h2 id="about-heading">A bridge between an <em>idea</em> and a useful digital tool.</h2>
-          <p>Sharif Mahmood is the owner of Vertigo AI. He builds websites and AI agents, with an interest in the practical details: a clear interface, a helpful workflow, and technology that earns its place.</p>
-          <p>Alongside client work, he keeps exploring thoughtful ways to put AI to use.</p>
-          <a class="text-link about-link" href="mailto:Vertigogrowth1@gmail.com">Write to Sharif <span aria-hidden="true">↗</span></a>
+          <p class="section-kicker"><span>05</span> / A NOTE FROM THE STUDIO</p>
+          <h2 id="about-heading">Built with care.<br /><em>Led by curiosity.</em></h2>
+          <p>I'm Sharif, the person behind Vertigo AI. I started this studio to make digital work that is useful beyond the screen—work that helps a business communicate clearly, serve people well and spend less time on avoidable tasks.</p>
+          <p>It's an independent practice, so you deal directly with the person thinking through and building your project.</p>
+          <span class="signature">Sharif Mahmood <b>— Founder, Vertigo AI</b></span>
         </div>
       </section>
 
       <section class="contact-section" id="contact" aria-labelledby="contact-heading">
         <div class="page-shell contact-layout">
-          <div class="contact-intro" data-reveal><p class="eyebrow eyebrow-light">06 <span>/</span> Get in touch</p><h2 id="contact-heading">Have an idea<br />worth <em>building?</em></h2></div>
-          <div class="contact-action" data-reveal><p>Share what you’re trying to make clearer, easier, or more useful. A simple first conversation is a good place to begin.</p><a class="email-link" href="mailto:Vertigogrowth1@gmail.com?subject=Let%E2%80%99s%20talk%20about%20an%20idea">Vertigogrowth1@gmail.com <span aria-hidden="true">↗</span></a></div>
-          <div class="contact-bottom eyebrow"><span>Vertigo AI</span><span>Thoughtful digital work</span><a href="#top">Back to top ↑</a></div>
+          <div class="contact-intro" data-reveal><p class="section-kicker"><span>06</span> / YOUR TURN</p><h2 id="contact-heading">Have something<br />worth <em>making?</em></h2></div>
+          <div class="contact-action" data-reveal><p>Tell me a little about your business, what you're trying to improve and where you're getting stuck. We can take it from there.</p><a class="email-link" href="mailto:Vertigogrowth1@gmail.com?subject=Project%20enquiry">Vertigogrowth1@gmail.com <span aria-hidden="true">↗</span></a><small>Usually best to start with a short email. No long brief needed.</small></div>
+          <div class="contact-bottom"><span>VERTIGO AI</span><span>INDEPENDENT DIGITAL STUDIO</span><a href="#top">BACK TO TOP ↑</a></div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="footer-brand" href="#top"><span class="footer-mark" aria-hidden="true">V.</span><span>VERTIGO AI</span></a>
-      <span class="footer-credit">Websites · Practical AI agents</span>
-      <div class="footer-socials">
-        <a href="https://x.com/Humbledanteh1" target="_blank" rel="noreferrer" aria-label="X profile for Humbledanteh1">X <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/Humbledanteh1" target="_blank" rel="noreferrer" aria-label="GitHub profile for Humbledanteh1">GitHub <span aria-hidden="true">↗</span></a>
-      </div>
-      <small>© <span id="year">2026</span> Vertigo AI</small>
+      <a class="footer-brand" href="#top"><span class="footer-mark">v.</span><span>VERTIGO AI</span></a>
+      <span class="footer-credit">Websites · E-commerce · AI workflows</span>
+      <div class="footer-socials"><a href="https://x.com/Humbledanteh1" target="_blank" rel="noopener noreferrer">X ↗</a><a href="https://github.com/Humbledanteh1" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+      <small>© <span id="year">2026</span> VERTIGO AI</small>
     </footer>
     <script type="module" src="/src/main.ts"></script>
   </body>
