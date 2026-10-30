@@ -425,3 +425,12 @@
 @keyframes store-panel-in{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:640px){.store-announcement{justify-content:center;text-align:center}.store-announcement span:nth-child(2){display:none}.store-trust-row{gap:10px}.store-catalog-tools{align-items:stretch;flex-direction:column}.store-catalog-actions{justify-content:space-between}.store-search{flex:1}.store-search input{width:100%}.store-results-count span{display:none}.store-quick-view{opacity:1;transform:none}.store-story-strip{grid-template-columns:auto 1fr;gap:14px;margin-top:30px}.store-story-mark{width:48px;height:48px}.store-story-side{display:none}.store-quick-panel{grid-template-columns:1fr;max-height:90vh}.store-quick-panel>img{height:230px;min-height:230px}.store-quick-copy{padding:22px}.store-quick-copy h4{font-size:2.1rem}}
 @media(prefers-reduced-motion:reduce){.store-demo *, .store-demo *:before,.store-demo *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Hearth & Form saved-items control */
+.store-saved-filter{display:inline-flex;min-height:36px;align-items:center;gap:8px;padding:0 11px;border:1px solid #ded9cd;background:rgba(255,255,255,.48);color:#667765;cursor:pointer;font:700 .53rem 'Space Mono',monospace;text-transform:uppercase;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.store-saved-filter span{display:grid;min-width:19px;height:19px;place-items:center;border-radius:50%;background:#e8e9df;color:#536b52;font-size:.48rem}
+.store-saved-filter:hover,.store-saved-filter.selected{border-color:#6c856c;background:#354d40;color:#f8f5ed}
+.store-saved-filter.selected span{background:#dce5cb;color:#354d40}
+.store-saved-filter:focus-visible{outline:3px solid #a9c68d;outline-offset:3px}
+@media(max-width:640px){.store-saved-filter{justify-content:center;flex:0 0 auto}}
