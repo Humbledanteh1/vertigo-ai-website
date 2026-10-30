@@ -50,11 +50,13 @@ function StoreDemo() {
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState<'featured' | 'price-low' | 'price-high'>('featured')
   const [saved, setSaved] = useState<string[]>([])
+  const [showSavedOnly, setShowSavedOnly] = useState(false)
   const [quickView, setQuickView] = useState<Product | null>(null)
   const filteredProducts = products.filter((product) => {
     const matchesCategory = activeCategory === 'All' || product.category === activeCategory
     const matchesQuery = `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(query.trim().toLowerCase())
-    return matchesCategory && matchesQuery
+    const matchesSaved = !showSavedOnly || saved.includes(product.id)
+    return matchesCategory && matchesQuery && matchesSaved
   })
   const visibleProducts = [...filteredProducts].sort((a, b) => sort === 'price-low' ? a.price - b.price : sort === 'price-high' ? b.price - a.price : products.indexOf(a) - products.indexOf(b))
   const cartItems = Object.entries(cart).flatMap(([id, quantity]) => {
@@ -106,6 +108,7 @@ function StoreDemo() {
           {categories.map((category) => <button key={category} type="button" aria-pressed={activeCategory === category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)}>{category}</button>)}
         </div>
         <div className="store-catalog-actions">
+          <button type="button" className={`store-saved-filter ${showSavedOnly ? 'selected' : ''}`} aria-pressed={showSavedOnly} onClick={() => setShowSavedOnly((current) => !current)}>♡ Saved <span>{saved.length}</span></button>
           <label className="store-search"><span aria-hidden="true">⌕</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find an object…" aria-label="Search the collection" /></label>
           <label className="store-sort-label"><span>Sort</span><select value={sort} onChange={(event) => setSort(event.target.value as typeof sort)} aria-label="Sort products"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
         </div>
@@ -117,7 +120,7 @@ function StoreDemo() {
           <div className="store-product-meta"><div><span className="store-product-category">{product.category}</span><h5>{product.name}</h5><p>{product.description}</p></div><strong>{money(product.price)}</strong></div>
           <button type="button" className="store-add-button" onClick={() => addToBag(product)}>Add to bag <span aria-hidden="true">+</span></button>
         </article>)}
-      </div> : <div className="store-empty-results"><span>⌕</span><h5>No objects found just yet.</h5><p>Try another search or explore the full collection.</p><button type="button" onClick={() => { setQuery(''); setActiveCategory('All') }}>Clear filters</button></div>}
+      </div> : <div className="store-empty-results"><span>{showSavedOnly ? '♡' : '⌕'}</span><h5>{showSavedOnly ? 'No saved objects yet.' : 'No objects found just yet.'}</h5><p>{showSavedOnly ? 'Tap the heart on a piece to keep it close here.' : 'Try another search or explore the full collection.'}</p><button type="button" onClick={() => { setQuery(''); setActiveCategory('All'); setShowSavedOnly(false) }}> {showSavedOnly ? 'Browse the collection' : 'Clear filters'}</button></div>}
       <p className="store-live-note" role="status" aria-live="polite">{notice}</p>
       <div className="store-story-strip"><span className="store-story-mark">H/F</span><div><span className="store-eyebrow">A NOTE ON MAKING</span><h5>Less, but more meaningful.</h5><p>We believe the things we reach for every day deserve a little thought: natural textures, useful forms, and pieces made to stay in your home.</p></div><span className="store-story-side">KEEP WHAT<br />MATTERS.</span></div>
     </section>
