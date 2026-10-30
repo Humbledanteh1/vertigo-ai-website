@@ -64,41 +64,7 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   revealItems.forEach((item) => item.classList.add('is-visible'))
 }
 
-const serviceCards = [...document.querySelectorAll<HTMLElement>('.service-card')]
-const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-
-if (!reduceMotion && hasFinePointer) {
-  serviceCards.forEach((card) => {
-    card.addEventListener('pointerenter', () => {
-      card.classList.add('is-active')
-      serviceCards.forEach((other) => {
-        if (other !== card) other.classList.add('is-neighbor')
-      })
-    })
-
-    card.addEventListener('pointermove', (event) => {
-      const bounds = card.getBoundingClientRect()
-      const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width))
-      const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height))
-      const tiltX = ((x - 0.5) * 3).toFixed(2)
-      const tiltY = ((0.5 - y) * 2.4).toFixed(2)
-
-      card.style.setProperty('--spot-x', `${(x * 100).toFixed(1)}%`)
-      card.style.setProperty('--spot-y', `${(y * 100).toFixed(1)}%`)
-      card.style.setProperty('--tilt-x', `${tiltX}deg`)
-      card.style.setProperty('--tilt-y', `${tiltY}deg`)
-    })
-
-    card.addEventListener('pointerleave', () => {
-      card.classList.remove('is-active')
-      card.style.setProperty('--tilt-x', '0deg')
-      card.style.setProperty('--tilt-y', '0deg')
-      card.style.setProperty('--spot-x', '50%')
-      card.style.setProperty('--spot-y', '50%')
-      serviceCards.forEach((other) => other.classList.remove('is-neighbor'))
-    })
-  })
-}
+// Keep the service cards calm and readable; no pointer-tracking effects.
 
 const workNote = document.querySelector<HTMLElement>('.work-note')
 if (workNote) {
@@ -128,27 +94,60 @@ if (workNote) {
 }
 const projectStyles = document.createElement('style')
 projectStyles.textContent = `
-.vertigo-projects{display:block!important;margin-top:36px;color:#14232b}
-.vertigo-projects .vertigo-project-card,.vertigo-live-store{border:1px solid rgba(255,255,255,.72);background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(247,250,247,.52));backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%);box-shadow:0 18px 50px rgba(25,49,48,.09),inset 0 1px 0 rgba(255,255,255,.85);transition:transform .35s cubic-bezier(.2,.75,.25,1),box-shadow .35s ease,border-color .35s ease,background .35s ease}
-.vertigo-projects .vertigo-project-card:hover{transform:translateY(-6px);border-color:rgba(83,133,120,.48);box-shadow:0 24px 60px rgba(25,49,48,.15),inset 0 1px 0 rgba(255,255,255,.95)}
-.vertigo-section-label{display:flex;align-items:flex-start;gap:16px;margin:44px 0 20px;padding:0 0 15px;border-bottom:1px solid rgba(66,99,91,.2)}
-.vertigo-section-label>span{display:grid;place-items:center;width:34px;height:34px;flex:none;border:1px solid rgba(56,103,91,.25);border-radius:50%;background:rgba(255,255,255,.52);color:#35695a;font:700 .65rem 'Space Mono',monospace}
-.vertigo-section-label h3{margin:0;color:#183f50;font:400 clamp(1.7rem,3vw,2.5rem)/1.05 'DM Serif Display',serif}
-.vertigo-section-label p{margin:7px 0 0;color:#647178;font-size:.84rem;line-height:1.6}
-.vertigo-upcoming-art{position:relative;display:flex;min-height:250px;flex-direction:column;justify-content:center;gap:24px;overflow:hidden;padding:34px;background:rgba(229,237,229,.74);color:#183f50}
-.vertigo-upcoming-art:after{position:absolute;right:-34px;bottom:-75px;width:190px;height:190px;border:1px solid rgba(50,100,83,.18);border-radius:50%;box-shadow:0 0 0 24px rgba(255,255,255,.12),0 0 0 48px rgba(255,255,255,.09);content:"";pointer-events:none}
-.vertigo-upcoming-art>span{position:relative;z-index:1;align-self:flex-start;padding:7px 9px;border:1px solid rgba(64,111,95,.25);border-radius:999px;background:rgba(255,255,255,.46);font:700 .52rem 'Space Mono',monospace;letter-spacing:.07em}
-.vertigo-upcoming-art strong{position:relative;z-index:1;font:400 clamp(2rem,3.8vw,3rem)/.98 'DM Serif Display',serif;letter-spacing:-.03em}
-.vertigo-upcoming-art strong em{color:#417365;font-weight:400}
-.vertigo-service-art{background:linear-gradient(135deg,rgba(225,239,230,.9),rgba(212,229,221,.72))}
-.vertigo-pro-art{background:linear-gradient(135deg,rgba(232,230,218,.9),rgba(215,226,222,.72))}
-.vertigo-support-art{background:linear-gradient(135deg,rgba(222,235,240,.9),rgba(212,226,220,.72))}
-.vertigo-lead-art{background:linear-gradient(135deg,rgba(238,231,213,.9),rgba(224,230,211,.72))}
-.vertigo-booking-art{background:linear-gradient(135deg,rgba(229,224,241,.9),rgba(217,231,226,.72))}
-.vertigo-auto-art{background:linear-gradient(135deg,rgba(220,234,229,.9),rgba(218,225,239,.72))}
-.vertigo-coming-label{display:inline-flex;align-self:flex-start;margin-top:8px;padding:7px 10px;border:1px solid rgba(67,107,93,.22);border-radius:999px;background:rgba(255,255,255,.5);color:#527166;font:700 .55rem 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
-@media(prefers-reduced-motion:reduce){.vertigo-projects *, .vertigo-projects *:before,.vertigo-projects *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-@media(max-width:680px){.vertigo-section-label{margin-top:32px}.vertigo-upcoming-art{min-height:210px}}.vertigo-projects-heading{display:grid;grid-template-columns:1fr minmax(240px,.7fr);gap:30px;align-items:end;margin-bottom:30px}.vertigo-projects-heading h2{margin:12px 0 0;font:400 clamp(2.5rem,5vw,4.6rem)/.95 'DM Serif Display',serif;letter-spacing:-.05em}.vertigo-projects-heading h2 em{color:#1b627c}.vertigo-projects-heading>p{max-width:440px;margin:0;color:#647178;line-height:1.75}.vertigo-live-store{display:grid;grid-template-columns:minmax(220px,.82fr) 1.18fr;gap:clamp(24px,5vw,64px);align-items:stretch;margin:0 0 28px;padding:clamp(16px,2.5vw,28px);background:#fff;border:1px solid #d7dcda;box-shadow:0 16px 44px #1220270b;transition:transform .25s ease,box-shadow .25s ease}.vertigo-live-store:hover{transform:translateY(-3px);box-shadow:0 22px 52px #12202714}.vertigo-live-store-art{position:relative;display:flex;min-height:245px;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#e9f0dc 0,transparent 44%),linear-gradient(145deg,#163d32,#235748 62%,#b7c99d);color:#f8f5e9}.vertigo-store-spark{position:absolute;top:20px;right:22px;color:#dce8a9;font-size:35px}.vertigo-store-art-name{font:400 clamp(2.5rem,5vw,4.4rem)/.78 "DM Serif Display",Georgia,serif;letter-spacing:-.06em;text-align:center}.vertigo-store-art-name i{color:#d8e6a4;font-weight:400}.vertigo-store-art-caption{position:absolute;bottom:18px;left:18px;font:700 .52rem "Space Mono",monospace;letter-spacing:.12em;color:#e0e9d5}.vertigo-live-store-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:12px 0}.vertigo-live-store-meta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;width:100%}.vertigo-live-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;background:#e9f2e6;color:#2e6245;font:700 .54rem "Space Mono",monospace;letter-spacing:.06em}.vertigo-live-pill i{width:6px;height:6px;border-radius:50%;background:#438c5a}.vertigo-live-store-copy h3{margin:20px 0 10px;font:400 clamp(2.2rem,4vw,3.5rem)/1 "DM Serif Display",serif;letter-spacing:-.04em;color:#183f50}.vertigo-live-store-copy>p{max-width:480px;margin:0;color:#647178;font-size:.9rem;line-height:1.8}.vertigo-live-store-link{display:inline-flex;align-items:center;gap:12px;margin-top:24px;padding-bottom:7px;border-bottom:1px solid #7c9ba3;color:#224e61;font:700 .65rem "Space Mono",monospace;text-transform:uppercase}.vertigo-live-store-link b{font-size:1rem}.vertigo-project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.vertigo-project-card{overflow:hidden;background:#fbfaf6;border:1px solid #d7dcda;box-shadow:0 12px 34px #1220270a}.vertigo-project-image{position:relative;display:flex;min-height:250px;align-items:center;justify-content:center;overflow:hidden;background:#e5e1d5}.vertigo-project-image>img{position:absolute;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}.vertigo-project-card:hover .vertigo-project-image>img{transform:scale(1.035)}.vertigo-project-image>span{position:absolute;top:16px;left:16px;padding:8px 10px;background:#fbfaf6e8;color:#244653;font:700 .56rem 'Space Mono',monospace;letter-spacing:.08em}.vertigo-project-copy{padding:22px 24px 25px}.vertigo-project-copy h3{margin:8px 0;font:400 clamp(1.9rem,3vw,2.6rem)/1 'DM Serif Display',serif;color:#183f50}.vertigo-project-copy>p:not(.eyebrow){min-height:3.2em;color:#647178;font-size:.86rem;line-height:1.65}.vertigo-project-copy>a{display:inline-flex;gap:12px;padding-bottom:5px;border-bottom:1px solid #7c9ba3;color:#224e61;font:700 .65rem 'Space Mono',monospace;text-transform:uppercase}.vertigo-project-disclaimer{margin:24px 0 0;color:#718087;font-size:.76rem;line-height:1.7}.vertigo-agent-art{align-items:flex-start;flex-direction:column;padding:45px;background:radial-gradient(circle at 85% 10%,#c6d9bd,transparent 30%),linear-gradient(140deg,#dce9e2,#c9d9d2 55%,#e9e7d9);color:#163b3a}.vertigo-agent-art strong{font:400 clamp(2rem,4vw,3.5rem)/.95 'DM Serif Display',serif}.vertigo-agent-art strong em{color:#417365}.vertigo-agent-art small{font:700 .58rem 'Space Mono',monospace;letter-spacing:.1em;color:#55716b}.vertigo-order-art{align-items:stretch;flex-direction:column;gap:24px;padding:45px;background:#172a3a;color:#f4f4ef}.vertigo-order-art strong{font:700 .85rem 'Space Mono',monospace;letter-spacing:.04em}.vertigo-order-art strong i{float:right;color:#b6e177;font-style:normal;font-size:.65rem}.vertigo-order-art div{display:grid;gap:7px;padding:18px;border:1px solid #b5e1db2b;background:#ffffff0d}.vertigo-order-art small{color:#b6d8c2;font-size:.72rem}#vertigo-demo-root{position:fixed;inset:0;z-index:9999;overflow:auto;background:#f3f2ed}#vertigo-demo-root .demo-page{min-height:100%;overflow:visible}@media(max-width:680px){.vertigo-projects-heading{grid-template-columns:1fr;gap:14px}.vertigo-live-store{grid-template-columns:1fr;gap:20px;padding:14px}.vertigo-live-store-art{min-height:210px}.vertigo-live-store-copy{padding:8px 4px 10px}.vertigo-live-store-meta{align-items:flex-start}.vertigo-project-grid{grid-template-columns:1fr}.vertigo-project-image{min-height:230px}.vertigo-agent-art,.vertigo-order-art{padding:34px}.vertigo-project-copy{padding:20px}.vertigo-project-copy>p:not(.eyebrow){min-height:0}}
+.vertigo-projects{display:block!important;margin-top:0;color:#20241f}
+.vertigo-projects-heading{display:grid;grid-template-columns:1fr .7fr;gap:32px;align-items:end;margin-bottom:42px}
+.vertigo-projects-heading h2{margin:12px 0 0;font:500 clamp(2.7rem,5vw,5rem)/.96 'DM Sans',sans-serif;letter-spacing:-.075em}
+.vertigo-projects-heading h2 em{color:#d65b3d;font-family:'Playfair Display',serif}
+.vertigo-projects-heading>p{max-width:420px;margin:0;color:#6e7169;font-size:.88rem;line-height:1.8}
+.vertigo-projects .eyebrow{color:#77796f;font:500 .56rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.vertigo-live-store{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(22px,5vw,58px);align-items:stretch;margin:0 0 48px;padding:0 0 30px;border-bottom:1px solid #c9c5ba;color:#20241f}
+.vertigo-live-store-art{position:relative;display:flex;min-height:250px;align-items:center;justify-content:center;overflow:hidden;background:#263d32;color:#f8f6f0}
+.vertigo-store-spark{position:absolute;top:18px;right:22px;color:#e89a7f;font-size:30px}
+.vertigo-store-art-name{font:500 clamp(2.6rem,5vw,4.4rem)/.78 'Playfair Display',serif;letter-spacing:-.06em;text-align:center}
+.vertigo-store-art-name i{color:#e7a28a;font-weight:500}
+.vertigo-store-art-caption{position:absolute;bottom:17px;left:18px;font:400 .48rem 'DM Mono',monospace;letter-spacing:.1em;color:#e4e3d8}
+.vertigo-live-store-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:12px 0}
+.vertigo-live-store-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;width:100%}
+.vertigo-live-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;background:#e5e9dc;color:#345440;font:500 .5rem 'DM Mono',monospace;letter-spacing:.06em}
+.vertigo-live-pill i{width:6px;height:6px;border-radius:50%;background:#477a51}
+.vertigo-live-store-copy h3{margin:19px 0 9px;font:500 clamp(2rem,4vw,3.2rem)/1 'DM Sans',sans-serif;letter-spacing:-.07em;color:#263d32}
+.vertigo-live-store-copy>p{max-width:470px;margin:0;color:#6e7169;font-size:.88rem;line-height:1.8}
+.vertigo-live-store-link{display:inline-flex;align-items:center;gap:12px;margin-top:22px;padding-bottom:6px;border-bottom:1px solid #aaa79e;color:#263d32;font:500 .56rem 'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase}
+.vertigo-live-store-link b{color:#d65b3d;font-size:1rem}
+.vertigo-section-label{display:flex;align-items:flex-start;gap:16px;margin:52px 0 22px;padding:0 0 15px;border-bottom:1px solid #c9c5ba}
+.vertigo-section-label>span{color:#d65b3d;font:500 .6rem 'DM Mono',monospace}
+.vertigo-section-label h3{margin:0;color:#20241f;font:600 1.45rem 'DM Sans',sans-serif;letter-spacing:-.045em}
+.vertigo-section-label p{margin:5px 0 0;color:#77796f;font-size:.8rem;line-height:1.6}
+.vertigo-project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 22px}
+.vertigo-project-card{overflow:hidden;background:transparent;border:0;border-bottom:1px solid #c9c5ba;box-shadow:none}
+.vertigo-project-image{position:relative;display:flex;min-height:260px;align-items:center;justify-content:center;overflow:hidden;background:#dedbd1}
+.vertigo-project-image>img{position:absolute;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.vertigo-project-card:hover .vertigo-project-image>img{transform:scale(1.025)}
+.vertigo-project-image>span{position:absolute;top:14px;left:14px;padding:7px 9px;background:#f1eee7;color:#454a42;font:500 .5rem 'DM Mono',monospace;letter-spacing:.06em}
+.vertigo-project-copy{padding:18px 0 23px}
+.vertigo-project-copy h3{margin:7px 0;font:600 clamp(1.65rem,3vw,2.35rem)/1 'DM Sans',sans-serif;letter-spacing:-.06em;color:#263d32}
+.vertigo-project-copy>p:not(.eyebrow){min-height:3.2em;margin:0;color:#6e7169;font-size:.82rem;line-height:1.7}
+.vertigo-project-copy>a{display:inline-flex;gap:12px;margin-top:14px;padding-bottom:5px;border-bottom:1px solid #aaa79e;color:#20241f;font:500 .55rem 'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase}
+.vertigo-project-copy>a span{color:#d65b3d}
+.vertigo-upcoming-art{position:relative;display:flex;min-height:260px;flex-direction:column;justify-content:center;gap:24px;overflow:hidden;padding:30px;background:#dedbd1;color:#263d32}
+.vertigo-upcoming-art:after{position:absolute;right:-65px;bottom:-115px;width:240px;height:240px;border:1px solid #b9b6aa;border-radius:50%;box-shadow:0 0 0 24px rgba(255,255,255,.12),0 0 0 48px rgba(255,255,255,.1);content:"";pointer-events:none}
+.vertigo-upcoming-art>span{position:relative;z-index:1;align-self:flex-start;padding:7px 9px;border:1px solid #b9b6aa;font:500 .48rem 'DM Mono',monospace;letter-spacing:.07em}
+.vertigo-upcoming-art strong{position:relative;z-index:1;font:500 clamp(1.9rem,3.5vw,2.8rem)/.98 'Playfair Display',serif;letter-spacing:-.04em}
+.vertigo-upcoming-art strong em{color:#d65b3d;font-weight:500}
+.vertigo-service-art{background:#e3e8dc}.vertigo-pro-art{background:#e6e0d5}.vertigo-support-art{background:#dce4df}.vertigo-lead-art{background:#eadfd7}.vertigo-booking-art{background:#e4e0e9}.vertigo-auto-art{background:#dfe5dc}
+.vertigo-coming-label{display:inline-flex;align-self:flex-start;margin-top:8px;padding:6px 8px;border:1px solid #b9b6aa;color:#696c64;font:500 .48rem 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
+.vertigo-agent-art{align-items:flex-start;flex-direction:column;padding:40px;background:#dfe7df;color:#263d32}
+.vertigo-agent-art strong{font:500 clamp(2rem,4vw,3.3rem)/.95 'Playfair Display',serif}
+.vertigo-agent-art strong em{color:#d65b3d}
+.vertigo-agent-art small{font:500 .5rem 'DM Mono',monospace;letter-spacing:.1em;color:#657367}
+.vertigo-order-art{align-items:stretch;flex-direction:column;gap:22px;padding:40px;background:#263d32;color:#f8f6f0}
+.vertigo-order-art strong{font:500 .8rem 'DM Mono',monospace;letter-spacing:.04em}
+.vertigo-order-art strong i{float:right;color:#e7a28a;font-style:normal;font-size:.6rem}
+.vertigo-order-art div{display:grid;gap:7px;padding:17px;border:1px solid #ffffff2a;background:#ffffff0a}
+.vertigo-order-art small{color:#d1d8cd;font-size:.68rem}
+.vertigo-project-disclaimer{margin:30px 0 0;color:#85877e;font-size:.72rem;line-height:1.7}
+@media(max-width:680px){.vertigo-projects-heading{grid-template-columns:1fr;gap:14px;margin-bottom:30px}.vertigo-live-store{grid-template-columns:1fr;gap:17px;padding-bottom:24px}.vertigo-live-store-art{min-height:210px}.vertigo-live-store-copy{padding:0 2px}.vertigo-live-store-meta{align-items:flex-start}.vertigo-section-label{margin-top:39px}.vertigo-project-grid{grid-template-columns:1fr;gap:24px}.vertigo-project-image,.vertigo-upcoming-art{min-height:225px}.vertigo-agent-art,.vertigo-order-art{padding:32px}.vertigo-project-copy>p:not(.eyebrow){min-height:0}}
+@media(prefers-reduced-motion:reduce){.vertigo-projects *,.vertigo-projects *:before,.vertigo-projects *:after{transition:none!important;animation:none!important}}
 `
 document.head.appendChild(projectStyles)
 let demoRoot: Root | null = null
